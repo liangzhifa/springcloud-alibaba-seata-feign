@@ -1,0 +1,41 @@
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 这里使用的是 ip:3346/db_order_item 的数据库（一个服务一个数据库）
+    jdbc-url: jdbc:mysql://你的数据库ip:3306/db_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=Hongkong&useSSL=false
+    username: root
+    password: 你的数据库密码
+  #可以覆盖数据库配置开启
+  application:
+    name: provider-order-service
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    alibaba:
+      seata:
+        tx-service-group: tx_group
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  typeAliasesPackage: com.zhifa.order.domain
+  configuration:
+    map-underscore-to-camel-case: true
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+#mybatis的sql日志打印
+logging:
+  level:
+    com.zhifa.item.mapper: debug
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+server:
+  port: 8081
